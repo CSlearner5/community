@@ -13,7 +13,7 @@ public class GithubProvider {
 
     /**
      * 向GitHub请求令牌
-     * 利用okhttp架包
+     * 利用okhttp架包-Post
      * @param accessTokenDTO
      * @return
      */
@@ -29,16 +29,16 @@ public class GithubProvider {
                 .build();
         try (Response response = client.newCall(request).execute()) {
             String temp = response.body().string();
-            System.out.println(temp);
-            return temp;
-        } catch (IOException e) {
+            String token = temp.split("&")[0].split("=")[1];
+            return token;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
     /**
-     * 获取用户信息
+     * 获取用户信息-Get
      * @param accessToken
      * @return
      */
