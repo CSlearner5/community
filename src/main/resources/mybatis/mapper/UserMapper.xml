@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.community.mapper.UserMapper">
+    <insert id="insertUser">
+        insert into user (account_id, name, token, gmt_create, gmt_modified)
+        values (#{accountId}, #{name}, #{token}, #{gmtCreate}, #{gmtModified})
+    </insert>
+    <select id="findByToken" resultType="com.example.community.model.User">
+        select * from user where token = #{token}
+    </select>
+</mapper>
