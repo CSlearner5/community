@@ -1,0 +1,1 @@
+alter table user add avatar_uri varchar(100) null;

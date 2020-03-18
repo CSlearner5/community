@@ -77,6 +77,20 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.module/jackson-module-kotlin -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.module</groupId>
+            <artifactId>jackson-module-kotlin</artifactId>
+            <version>2.10.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -84,6 +98,23 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>6.3.0</version>
+                <configuration>
+                    <url>jdbc:h2:E:/test/h2test/community</url>
+                    <user>root</user>
+                    <password>ymj15345</password>
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.h2database</groupId>
+                        <artifactId>h2</artifactId>
+                        <version>1.4.200</version>
+                    </dependency>
+                </dependencies>
             </plugin>
         </plugins>
     </build>
