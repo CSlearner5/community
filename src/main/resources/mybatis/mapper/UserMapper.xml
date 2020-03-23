@@ -10,4 +10,10 @@
     <select id="findByToken" resultType="com.example.community.model.User">
         select * from user where token = #{token}
     </select>
+    <select id="findById" resultType="com.example.community.model.User">
+        select * from user where id = #{id}
+    </select>
+    <select id="findByAccountId" resultType="com.example.community.model.User">
+        select * from user where account_id = #{creatorId} order by gmt_modified desc limit 1
+    </select>
 </mapper>

@@ -76,7 +76,7 @@ public class PublishController {
         question.setTitle(title);
         question.setDescription(description);
         question.setTag(tag);
-        question.setCreator(user.getId());
+        question.setCreator(user.getAccountId());
         question.setGetCreate(System.currentTimeMillis());
         question.setGetModified(question.getGetCreate());
         questionMapper.create(question);

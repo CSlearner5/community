@@ -10,4 +10,8 @@ public interface UserMapper {
     public void insertUser(User user);
 
     User findByToken(@Param("token") String token);
+
+    User findById(@Param("id") Integer id);
+
+    User findByAccountId(@Param("creatorId") String creatorId);
 }

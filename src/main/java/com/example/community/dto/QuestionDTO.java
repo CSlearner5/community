@@ -1,9 +1,10 @@
-package com.example.community.model;
+package com.example.community.dto;
 
+import com.example.community.model.User;
 import lombok.Data;
 
 @Data
-public class Question {
+public class QuestionDTO {
 
     private Integer id;
     private String title;
@@ -11,8 +12,9 @@ public class Question {
     private String tag;
     private Long getCreate;
     private Long getModified;
-    private String creator;
+    private Integer creator;
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;
+    private User user;
 }
