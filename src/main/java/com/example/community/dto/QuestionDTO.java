@@ -12,7 +12,7 @@ public class QuestionDTO {
     private String tag;
     private Long getCreate;
     private Long getModified;
-    private Integer creator;
+    private String creator;
     private Integer viewCount;
     private Integer commentCount;
     private Integer likeCount;

@@ -14,4 +14,11 @@
     <select id="listByUserId" resultType="com.example.community.model.Question">
         select * from question where creator = #{userId} limit #{offset}, #{size}
     </select>
+    <select id="getById" resultType="com.example.community.model.Question">
+        select * from question where id = #{id}
+    </select>
+    <update id="update">
+        update question set title = #{title}, description = #{description},
+        get_modified = #{getModified}, tag = #{tag} where id = #{id}
+    </update>
 </mapper>

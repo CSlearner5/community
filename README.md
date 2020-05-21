@@ -7,6 +7,7 @@
 [Spring Boot开发指南](https://spring.io/guides/)
 
 [前端页面设计](https://v3.bootcss.com/)
+
 ### 相关技术
 
 Spring Boot
@@ -18,6 +19,9 @@ Flyway
 
 [Lombok](https://projectlombok.org/)
 > Lombok是一个Java库，能自动插入编辑器并构建工具，简化Java开发。通过添加注解的方式，不需要为类编写getter或eques方法，同时可以自动化日志变量。
+
+[Mybatis Generator](http://mybatis.org/generator/running/runningWithMaven.html)
+> Mapper自动导入工具
 
 ### 工具
 

@@ -6,6 +6,7 @@ import com.example.community.mapper.QuestionMapper;
 import com.example.community.mapper.UserMapper;
 import com.example.community.model.Question;
 import com.example.community.model.User;
+import com.example.community.model.UserExample;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,11 @@ public class QuestionService {
         List<Question> questions = questionMapper.list(offset, size);
         List<QuestionDTO> questionDTOS = new ArrayList<>();
         for(Question question : questions) {
-            User user = userMapper.findByAccountId(question.getCreator());
+            UserExample userExample = new UserExample();
+            userExample.createCriteria().andAccountIdEqualTo(question.getCreator());
+            List<User> users = userMapper.selectByExample(userExample);
+            User user = users.get(0);
+            //User user = userMapper.findByAccountId(question.getCreator());
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO); //通过反射机制，将对应名字的属性值进行拷贝
             questionDTO.setUser(user);
@@ -65,7 +70,11 @@ public class QuestionService {
         Integer offset = size * (page - 1);
         List<Question> questions = questionMapper.listByUserId(userId, offset, size);
         List<QuestionDTO> questionDTOS = new ArrayList<>();
-        User user = userMapper.findByAccountId(userId);
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andAccountIdEqualTo(userId);
+        List<User> users = userMapper.selectByExample(userExample);
+        User user = users.get(0);
+        //User user = userMapper.findByAccountId(userId);
         for(Question question : questions) {
             QuestionDTO questionDTO = new QuestionDTO();
             BeanUtils.copyProperties(question, questionDTO); //通过反射机制，将对应名字的属性值进行拷贝
@@ -74,5 +83,29 @@ public class QuestionService {
         }
         paginationDTO.setQuestions(questionDTOS);
         return paginationDTO;
+    }
+
+    public QuestionDTO getById(Integer id) {
+        Question question = questionMapper.getById(id);
+        QuestionDTO questionDTO = new QuestionDTO();
+        BeanUtils.copyProperties(question, questionDTO);
+        UserExample userExample = new UserExample();
+        userExample.createCriteria().andAccountIdEqualTo(question.getCreator());
+        List<User> users = userMapper.selectByExample(userExample);
+        User user = users.get(0);
+        //User user = userMapper.findByAccountId(question.getCreator());
+        questionDTO.setUser(user);
+        return questionDTO;
+    }
+
+    public void createOrUpdate(Question question) {
+        if(question.getId() == null) {
+            question.setGetCreate(System.currentTimeMillis());
+            question.setGetModified(question.getGetCreate());
+            questionMapper.create(question);
+        }else {
+            question.setGetModified(System.currentTimeMillis());
+            questionMapper.update(question);
+        }
     }
 }
