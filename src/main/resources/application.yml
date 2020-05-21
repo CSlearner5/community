@@ -3,7 +3,7 @@ spring:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:E:/test/h2test/community
     username: root
-    password: ymj15345
+    password: 123456
 
 mybatis:
   config-location: classpath:mybatis/mybatis-config.xml
