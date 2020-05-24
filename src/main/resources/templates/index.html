@@ -9,6 +9,15 @@
     <script src="/static/js/jquery-3.4.1.min.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
 </head>
+<script type="application/javascript">
+    window.onload = function () {
+        let closable = window.localStorage.getItem("closable")
+        if(closable === "true") {
+            window.close()
+            window.localStorage.removeItem("closable")
+        }
+    }
+</script>
 <body>
 <nav class="navbar navbar-default" th:fragment="top">
     <div class="container-fluid">
