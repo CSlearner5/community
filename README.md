@@ -20,10 +20,10 @@ Flyway
 > mvn flyway:migrate
 
 [Lombok](https://projectlombok.org/)
-> Lombok是一个Java库，能自动插入编辑器并构建工具，简化Java开发。通过添加注解的方式，不需要为类编写getter或eques方法，同时可以自动化日志变量。
+> Lombok是一个Java库，能自动插入编辑器并构建工具，简化Java开发。通过添加注解的方式，不需要为类编写setter, getter或equals等方法，同时可以自动化日志变量。
 
 [Mybatis Generator](http://mybatis.org/generator/running/runningWithMaven.html)
-> Mapper自动导入工具
+> Mapper自动导入工具，可以根数据库表的结构自动生成model, mapper和xml文件
 >
 > mvn -Dmybatis.generator.overwrite=true mybatis-generator:generate
 
