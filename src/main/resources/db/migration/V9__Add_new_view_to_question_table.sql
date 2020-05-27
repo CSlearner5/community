@@ -1,0 +1,1 @@
+alter table question add new_view int default 0;

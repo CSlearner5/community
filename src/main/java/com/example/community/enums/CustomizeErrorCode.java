@@ -9,6 +9,7 @@ public enum CustomizeErrorCode implements ICustomizeErrorCode {
     TYPE_PARAM_WRONG(2005, "评论类型错误或不存在"),
     COMMENT_NOT_FOUND(2006, "回复的评论不存在, 请重新操作"),
     COMMENT_IS_EMPTY(2007, "输入内容不能为空"),
+    GITHUB_SLOW(2008, "GitHub认证卡顿, 请稍后重试")
     ;
 
     private String message;

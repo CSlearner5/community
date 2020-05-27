@@ -36,7 +36,8 @@ public class IndexController {
     public String index(HttpServletRequest request,
                         Model model,
                         @RequestParam(name = "page", defaultValue = "1") Integer page,
-                        @RequestParam(name = "size", defaultValue = "5") Integer size) {
+                        @RequestParam(name = "size", defaultValue = "5") Integer size,
+                        @RequestParam(name = "search", required = false) String search) {
         Cookie[] cookies = request.getCookies();
         if(cookies != null) {
             for(Cookie cookie : cookies) {
@@ -53,8 +54,16 @@ public class IndexController {
                 }
             }
         }
-        PaginationDTO pagination = questionService.list(page, size);
+        if(request.getSession().getAttribute("user") != null) {
+            User user = (User) request.getSession().getAttribute("user");
+            Long replyNum = questionService.countReplies(user.getAccountId());
+            request.getSession().setAttribute("num_reply", replyNum);
+        }
+        PaginationDTO pagination = questionService.list(page, size, search);
+        List<QuestionDTO> topics = questionService.topicList();
         model.addAttribute("pagination", pagination);
+        model.addAttribute("search", search);
+        model.addAttribute("topics", topics);
         return "index";
     }
 }

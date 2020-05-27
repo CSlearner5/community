@@ -30,16 +30,21 @@ public class ProfileController {
             return "redirect:/";
         }
 
+        Long questionNum = questionService.countQuestions(user.getAccountId());
+        Long replyNum = questionService.countReplies(user.getAccountId());
         if("questions".equals(action)) {
             model.addAttribute("section", "questions");
             model.addAttribute("sectionName", "我的提问");
+            PaginationDTO pagination = questionService.list(user.getAccountId(), page, size, true);
+            model.addAttribute("pagination", pagination);
         } else if("replies".equals(action)) {
             model.addAttribute("section", "replies");
             model.addAttribute("sectionName", "最新回复");
+            PaginationDTO pagination = questionService.list(user.getAccountId(), page, size, false);
+            model.addAttribute("pagination", pagination);
         }
-
-        PaginationDTO pagination = questionService.list(user.getAccountId(), page, size);
-        model.addAttribute("pagination", pagination);
+        model.addAttribute("num_question", questionNum);
+        model.addAttribute("num_reply", replyNum);
         return "/profile";
     }
 }

@@ -58,7 +58,7 @@ public class AuthorizeController {
             user.setToken(token);
             user.setName(githubUser.getName());
             user.setAccountId(String.valueOf(githubUser.getId()));
-            user.setAvatarUri(githubUser.getAvatarUri());
+            user.setAvatarUri(githubUser.getAvatarUrl());
             userService.createOrUpdate(user);
             //userMapper.insertUser(user);
             //request.getSession().setAttribute("user", user);
@@ -74,6 +74,7 @@ public class AuthorizeController {
     public String logout(HttpServletRequest request,
                          HttpServletResponse response) {
         request.getSession().removeAttribute("user");
+        request.getSession().removeAttribute("num_reply");
         Cookie cookie = new Cookie("token", "null");
         cookie.setMaxAge(0);
         response.addCookie(cookie);

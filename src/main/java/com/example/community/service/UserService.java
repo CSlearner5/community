@@ -1,5 +1,7 @@
 package com.example.community.service;
 
+import com.example.community.enums.CustomizeErrorCode;
+import com.example.community.exception.CustomizeException;
 import com.example.community.mapper.UserMapper;
 import com.example.community.model.User;
 import com.example.community.model.UserExample;
@@ -17,6 +19,9 @@ public class UserService {
 
 
     public void createOrUpdate(User user) {
+        if(user.getAccountId() == null) {
+            throw new CustomizeException(CustomizeErrorCode.GITHUB_SLOW);
+        }
         UserExample userExample = new UserExample();
         userExample.createCriteria().andAccountIdEqualTo(user.getAccountId());
         List<User> users = userMapper.selectByExample(userExample);

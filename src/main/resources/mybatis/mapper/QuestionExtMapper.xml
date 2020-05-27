@@ -16,6 +16,7 @@
     <result column="VIEW_COUNT" jdbcType="INTEGER" property="viewCount" />
     <result column="LIKE_COUNT" jdbcType="INTEGER" property="likeCount" />
     <result column="TAG" jdbcType="VARCHAR" property="tag" />
+    <result column="NEW_VIEW" jdbcType="INTEGER" property="newView" />
   </resultMap>
 
   <update id="incView" parameterType="com.example.community.model.Question">
@@ -26,6 +27,35 @@
   <update id="incCommentCount" parameterType="com.example.community.model.Question">
     update QUESTION
     set COMMENT_COUNT = COMMENT_COUNT + #{commentCount,jdbcType=INTEGER}
+    where id = #{id}
+  </update>
+  <select id="selectRelated" parameterType="com.example.community.model.Question" resultMap="BaseResultMap">
+    select * from QUESTION where id != #{id} and tag regexp #{tag}
+  </select>
+  <select id="countBySearch" parameterType="com.example.community.dto.QuestionQueryDTO" resultType="java.lang.Integer">
+    select count(*) from QUESTION
+    <where>
+      <if test="search != null">
+        and title regexp #{search}
+      </if>
+    </where>
+  </select>
+  <select id="selectBySearch" parameterType="com.example.community.dto.QuestionQueryDTO" resultMap="BaseResultMap">
+    select * from QUESTION
+    <where>
+      <if test="search != null">
+        and title regexp #{search}
+      </if>
+    </where>
+    order by get_create desc limit #{offset}, #{size}
+  </select>
+  <select id="topicList" resultMap="BaseResultMap">
+    select * from QUESTION order by comment_count desc, like_count desc, view_count desc
+    limit #{offset}, #{size}
+  </select>
+  <update id="showView" parameterType="com.example.community.model.Question">
+    update QUESTION
+    set NEW_VIEW = #{newView}
     where id = #{id}
   </update>
 </mapper>
